@@ -16,16 +16,62 @@ if not api_key:
     raise ValueError("Missing GROQ_API_KEY. Set it as an env var or pass api_key=...")
 
 MELODY_PROMPT = ChatPromptTemplate.from_template(
-    "Generate a melody based on this input: {input}. Represent it as a space seperated notes (eg., C4 D4 E4)"
+    """
+    Generate a melody based on this input: {input}.
+
+    STRICT FORMAT:
+    - Output ONLY space-separated musical notes.
+    - Valid examples: C4 D4 E4 G4 A4
+    - NO explanations, NO sentences, NO punctuation, NO text.
+
+    Your final output must contain ONLY notes like:
+    C4 D4 E4 F4 G4 A4 G4
+    """
 )
+
 HARMONY_PROMPT = ChatPromptTemplate.from_template(
-    "Create harmony chords for this melody: {melody}. Format: C4-E4-G4 F4-A4-C5"
+    """
+    Create harmony chords for this melody: {melody}.
+
+    STRICT FORMAT:
+    - Output ONLY space-separated chords.
+    - Each chord must look like: C4-E4-G4
+    - Multiple chords example: C4-E4-G4 F4-A4-C5 G4-B4-D5
+    - NO explanations, NO sentences, NO extra text.
+
+        Your final output must contain ONLY chords.
+    """
 )
+
 RHYTHM_PROMPT = ChatPromptTemplate.from_template(
-    "Suggest rhythm durations (in beats) for this melody: {melody}. Format: 1.0 0.5 0.5 2.0"
+    """
+    Suggest rhythm durations (in beats) for this melody: {melody}.
+
+        STRICT FORMAT:
+    - Output ONLY numbers separated by spaces.
+    - Example: 1.0 0.5 0.5 2.0 1.0
+    - Match the count of melody notes if possible.
+    - NO words, NO explanations, NO symbols except digits and dots.
+
+        Your final output must contain ONLY numbers.
+    """
 )
+
 STYLE_PROMPT = ChatPromptTemplate.from_template(
-    "Adapt to {style} style: \n Melody: {melody}\nHarmony: {harmony}\n Rhythm: {rhythm}\nOutput single string summary"
+    """
+    Adapt the composition to {style} style using the following:
+    Melody: {melody}
+    Harmony: {harmony}
+    Rhythm: {rhythm}
+
+        STRICT FORMAT:
+    - Output ONLY a short final composition description (2–3 lines max).
+    - No markdown (**), no lists, no bullet points.
+    - Plain English text ONLY.
+
+    Example:
+    A bright upbeat melody with smooth harmony and steady rhythm.
+    """
 )
 
 
