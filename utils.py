@@ -3,8 +3,10 @@ import numpy as np
 import io
 from scipy.io.wavfile import write as wav_write
 from synthesizer import Synthesizer, Waveform
-from loguru import logger
+from logging_setup import setup_logger
 
+
+logger = setup_logger()
 
 def note_to_frequencies(note_list):
     freqs = []
@@ -30,22 +32,22 @@ def generate_wav_bytes_from_notes_freq(notes_freq):
     return buffer.getvalue()
 
 
-# if __name__ == "__main__":
-#     logger.info("Starting audio generation test...")
+if __name__ == "__main__":
+    logger.info("Starting audio generation test...")
 
-#     notes = ["C4", "E4", "G4", "C5"]
-#     logger.info("Input notes: {}", notes)
+    notes = ["C4", "E4", "G4", "C5"]
+    logger.info("Input notes: {}", notes)
 
-#     freqs = note_to_frequencies(notes)
-#     logger.info("Frequencies (Hz): {}", freqs)
+    freqs = note_to_frequencies(notes)
+    logger.info("Frequencies (Hz): {}", freqs)
 
-#     wav_bytes = generate_wav_bytes_from_notes_freq(freqs)
-#     logger.info("Generated WAV bytes: {} bytes", len(wav_bytes))
+    wav_bytes = generate_wav_bytes_from_notes_freq(freqs)
+    logger.info("Generated WAV bytes: {} bytes", len(wav_bytes))
 
-#     if wav_bytes:
-#         out_path = "out.wav"
-#         with open(out_path, "wb") as f:
-#             f.write(wav_bytes)
-#         logger.success("Saved {}", out_path)
-#     else:
-#         logger.warning("No audio produced (empty WAV bytes). Check your notes / parsing.")
+    if wav_bytes:
+        out_path = "out.wav"
+        with open(out_path, "wb") as f:
+            f.write(wav_bytes)
+        logger.success("Saved {}", out_path)
+    else:
+        logger.warning("No audio produced (empty WAV bytes). Check your notes / parsing.")
