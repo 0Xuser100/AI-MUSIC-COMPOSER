@@ -8,6 +8,7 @@ from logging_setup import setup_logger
 
 logger = setup_logger()
 
+
 def note_to_frequencies(note_list):
     freqs = []
     for note_str in note_list:
@@ -50,4 +51,6 @@ if __name__ == "__main__":
             f.write(wav_bytes)
         logger.success("Saved {}", out_path)
     else:
-        logger.warning("No audio produced (empty WAV bytes). Check your notes / parsing.")
+        logger.warning(
+            "No audio produced (empty WAV bytes). Check your notes / parsing."
+        )
