@@ -15,6 +15,11 @@ Starter scaffold for experimenting with AI-assisted music composition. The repo 
 - Run the current entrypoint: `python main.py` (prints a placeholder message). Extend this file with LangChain/Groq calls, MIDI generation with `music21`, and audio synthesis as you build out the composer.
 - For Streamlit experiments, add a script and start it with `streamlit run <script>.py`.
 
+## Docker
+- Build the image: `docker build -t ai-music-composer .`
+- Run with your `.env` (no quotes around the key) and expose Streamlit: `docker run --rm -p 8501:8501 --env-file .env ai-music-composer`
+- If you prefer inline env vars: `docker run --rm -p 8501:8501 -e GROQ_API_KEY=sk_... ai-music-composer`
+
 ## Project Layout
 - `main.py` – entrypoint placeholder
 - `pyproject.toml` – project metadata and dependencies
